@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="WPFUserControlsRaf.ComboBoxRaf"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFUserControlsRaf"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel LastChildFill="False">
+        <local:TekstBoxRaf  tekstRaf="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel},Mode=TwoWay, Path=DataContext.tekstComboRaf}"
+                            x:Name="textParent"
+                            DockPanel.Dock="Top"/>
+        <StackPanel        Orientation="Horizontal">
+            <DataGrid      ItemsSource="{Binding listSource}"
+                           SelectedItem="{Binding daneInnePrawa.selItem}"
+                           SelectedValue="{Binding daneInnePrawa.innePrawaSel[decyzjaOrganID]}"
+                           SelectedValuePath="ID"
+                           CanUserSortColumns="False"
+                           IsReadOnly="True"
+                           CanUserAddRows="False"
+                           CanUserDeleteRows="False" 
+                           CanUserReorderColumns="False"
+                           HeadersVisibility="None"
+                           SelectionMode="Single" 
+                           SelectionUnit="FullRow"
+                           Margin="150,0"
+                           Width="300"
+                           HorizontalScrollBarVisibility="Hidden"
+                           AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Podmiot" 
+                                        Binding="{Binding name}"
+                                        Width="500"/>
+                </DataGrid.Columns>
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=textParent.Child.tekstBoxNameRaf, Path=IsKeyboardFocused }" Value="true">
+                                  <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Style>
+            </DataGrid>
+            
+            
+        </StackPanel>
+    </DockPanel>
+</UserControl>
